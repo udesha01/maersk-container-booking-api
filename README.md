@@ -20,7 +20,7 @@ Clone the repository:
 
 bash
 
-git clone <repository-url>
+git clone https://github.com/udesha01/maersk-container-booking-api.git
 
 Navigate to the project directory:
 
@@ -46,7 +46,7 @@ Endpoints
 
 Check Available Space for Booking:
 
-Endpoint: POST /api/bookings/checkAvailable
+Endpoint: POST /api/bookings/availability
 
 Request Body: BookingRequest
 
@@ -54,7 +54,7 @@ Response: AvailabilityResponse
 
 Save Booking:
 
-Endpoint: POST /api/bookings/saveBooking
+Endpoint: POST /api/bookings/savebooking
 
 Request Body: BookingRequest
 
@@ -92,13 +92,10 @@ json
 
 Built With
 
-Spring Boot
-
-Maven
-
-
-MongoDB
-
+Spring Boot,
+Maven,
+MongoDB,
+Java 17,
 OpenAPI Specification (OAS)
 
 Authors
