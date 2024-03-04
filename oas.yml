@@ -1,0 +1,95 @@
+openapi: 3.0.0
+info:
+  title: Maersk Container Booking API
+  description: API for booking containers with Maersk
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/bookings/checkAvailable:
+    post:
+      summary: Check available space for booking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailabilityResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /api/bookings/saveBooking:
+    post:
+      summary: Save booking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingReferenceResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    BookingRequest:
+      type: object
+      properties:
+        containerSize:
+          type: integer
+          enum: [20, 40]
+        containerType:
+          type: string
+          enum: [DRY, REEFER]
+        origin:
+          type: string
+          minLength: 5
+          maxLength: 20
+        destination:
+          type: string
+          minLength: 5
+          maxLength: 20
+        quantity:
+          type: integer
+          minimum: 1
+          maximum: 100
+        timestamp:
+          type: string
+          format: date-time
+    AvailabilityResponse:
+      type: object
+      properties:
+        available:
+          type: boolean
+    BookingReferenceResponse:
+      type: object
+      properties:
+        bookingRef:
+          type: string
+          pattern: ^957\d{6}$
